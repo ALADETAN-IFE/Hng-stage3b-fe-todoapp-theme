@@ -1,6 +1,7 @@
-import type { FC } from 'react';
-import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import type { FC } from "react";
+import React from "react";
+import { Image } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 type Item = { id: string; text: string; done: boolean };
 
@@ -12,14 +13,32 @@ type Props = {
 };
 
 const TodoItem: FC<Props> = ({ item, toggle, remove, dark }) => {
+  const colorClasses = `${dark ? (item.done ? "text-[#4D5067]" : "text-white") : item.done ? "text-[#4D5067]" : "text-black"}`;
   return (
-    <View className={`flex-row items-center p-2 rounded-md mb-1 ${item.done ? 'opacity-70' : ''}`}>
-      <TouchableOpacity onPress={() => toggle(item.id)} className="w-7 items-center">
-        <Text>{item.done ? '✔' : '○'}</Text>
+    <View
+      className={`border-b-[2px] ${dark ? "border-b-[#393A4B]" : "border-b-[#E3E4F1]"} flex-row items-center p-2 h-16`}
+    >
+      <View className="bg-gradient-to-br from-[#55DDFF] to-[#C058F3] p-[2px] rounded-full">
+      <TouchableOpacity
+        activeOpacity={0.8}
+        accessibilityRole="button"
+        className={`mr-3 h-6 w-6 rounded-full items-center justify-center ${
+          dark ? (item.done ? "" : "border border-slate-600") : item.done ? "" : "border border-slate-300" 
+        } ${!item.done ? "border hover:border-[#, #C058F3]" : ""}` }
+        onPress={() => toggle(item.id)}
+      >
+        {item.done && (
+          <Image source={require('../assets/images/checked.png')} className="w-full h-full" />
+        )}
       </TouchableOpacity>
-      <Text className={`flex-1 ${item.done ? 'line-through text-[#6b7280]' : ''}`}>{item.text}</Text>
-      <TouchableOpacity onPress={() => remove(item.id)} className="px-2 py-1 rounded-md border border-[rgba(0,0,0,0.06)]">
-        <Text className="text-sm">Delete</Text>
+      </View>
+      <Text
+        className={`flex-1 ${item.done ? "line-through" : ""} ${colorClasses}`}
+      >
+        {item.text}
+      </Text>
+      <TouchableOpacity onPress={() => remove(item.id)} className="px-2 py-1">
+        <Text className="text-sm">X</Text>
       </TouchableOpacity>
     </View>
   );

@@ -22,7 +22,7 @@ type Props = {
 
 const Header: FC<Props> = ({ dark, setDark }) => {
   return (
-    <View className="flex-row justify-between items-center mb-3 w-[90%] md:w-[540px] top-12 md:top-24">
+    <View className="flex-row justify-between items-center w-[90%] md:w-[540px] top-12 md:top-24">
       <View>
         <Text className="text-white text-xl md:text-4xl uppercase font-bold tracking-[15px]">todo</Text>
       </View>

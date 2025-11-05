@@ -80,7 +80,7 @@ const useTodos = () => {
   return { todos, add, toggle, remove, clearCompleted } as const;
 };
 
-const AppScreen: FC = () => {
+const Index: FC = () => {
   const { todos, add, toggle, remove, clearCompleted } = useTodos();
   const [text, setText] = useState("");
   const [dark, setDark] = useState(false);
@@ -103,33 +103,35 @@ const AppScreen: FC = () => {
   }, [todos, clearCompleted]);
 
   return (
-    <SafeAreaView className={`${dark ? "bg-transparent" : "bg-transparent"} flex-1 relative w-full`}>
+    <SafeAreaView className={`${dark ? "bg-[#171823]" : "bg-white"} flex-1 relative w-full`}>
       <ImageBackground
         source={dark ? require("../assets/images/darkModeBg.png") : require("../assets/images/lightModeBg.png")}
         resizeMode="cover"
-        className="w-full h-[200px] md:h-[300px] items-center"
+        className="w-full h-[200px] md:h-[300px] items-center overflow-hidden"
         style={{ width: '100%' }}
       >
-        <LinearGradient colors={dark ? ["#3710BD", "#A42395"] : ["#5596FF", "#AC2DEB"]} locations={[0, 1]} style={styles.gradientOverlay} pointerEvents="none" className="opacity-50"/>
+        <LinearGradient colors={dark ? ["#3710BD", "#A42395"] : ["#5596FF", "#AC2DEB"]} locations={[0, 1]} style={styles.gradientOverlay} className="opacity-50"/>
 
         <Header dark={dark} setDark={setDark} />
       </ImageBackground>
 
       <SafeAreaView className="w-screen absolute top-[108px] md:top-[158px] h-full items-center">
-        <View className={`rounded-lg p-3 relative w-[90%] md:w-[540px]`}>
+        <View className={`relative w-[90%] md:w-[540px] flex flex-col gap-6`}>
           <TodoInput text={text} setText={setText} onSubmit={onSubmit} dark={dark} />
 
-          <View style={{ minHeight: 80 }}>
+          <View className={`${dark ? "bg-[#25273D]" : "bg-white"} rounded-[5px] shadow-md`}>
             {todos.length === 0 ? (
               <Text className={`${dark ? "text-[#9aa6bd]" : "text-[#6b7280]"}`}>No todos yet.</Text>
             ) : (
-              <FlatList data={todos} keyExtractor={(item) => item.id} renderItem={({ item }) => <TodoItem item={item as any} toggle={toggle} remove={remove} dark={dark} />} />
+              <FlatList 
+               data={todos} 
+               keyExtractor={(item) => item.id} 
+               renderItem={({ item }) => <TodoItem item={item as any} toggle={toggle} remove={remove} dark={dark} />} 
+              />
             )}
-          </View>
-
-          <View className="flex-row justify-between items-center mt-3">
+          <View className="flex-row justify-between items-center p-2 h-16">
             <Text className={`${dark ? "text-[#9aa6bd]" : "text-[#6b7280]"}`}>{todos.length} total</Text>
-            <View className="flex-row space-x-2">
+            <View className="flex-row hidden md:flex">
               <TouchableOpacity className="px-3 py-1 rounded-md border" onPress={() => { setText(""); }}>
                 <Text className="text-sm">Clear input</Text>
               </TouchableOpacity>
@@ -137,14 +139,24 @@ const AppScreen: FC = () => {
                 <Text className="text-sm">Clear completed</Text>
               </TouchableOpacity>
             </View>
+            <View className="flex-row p-2 h-16 ">
+              {/* <TouchableOpacity className="px-3 py-1 rounded-md border" onPress={() => { setText(""); }}>
+                <Text className="text-sm">Clear input</Text>
+              </TouchableOpacity>
+              <TouchableOpacity className="px-3 py-1 rounded-md border" onPress={onClear}>
+                <Text className="text-sm">Clear completed</Text>
+              </TouchableOpacity> */}
+            </View>
           </View>
+          </View>
+
         </View>
       </SafeAreaView>
     </SafeAreaView>
   );
 };
 
-export default AppScreen;
+export default Index;
 
 const styles = StyleSheet.create({
   gradientOverlay: {
