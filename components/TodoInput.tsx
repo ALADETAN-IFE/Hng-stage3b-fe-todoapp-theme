@@ -11,20 +11,56 @@ type Props = {
 
 const TodoInput: FC<Props> = ({ text, setText, onSubmit, dark }) => {
   return (
-    <View className="flex-row items-center mb-3">
-      <TextInput
-        className={`${dark ? 'text-[#e6eef8] border-white/6' : 'text-[#111827] border-slate-900/6'} flex-1 p-2 rounded-md border bg-transparent`}
-        value={text}
-        onChangeText={setText}
-        placeholder="What needs to be done?"
-        placeholderTextColor={dark ? '#9aa6bd' : '#6b7280'}
-        onSubmitEditing={onSubmit}
-        returnKeyType="done"
-        accessibilityLabel="New todo"
-      />
-      <TouchableOpacity className="ml-2 px-3 py-2 rounded-md bg-blue-600" onPress={onSubmit} accessibilityRole="button">
-        <Text className="text-white">Add</Text>
-      </TouchableOpacity>
+    <View className="w-full mb-3">
+      {/* Container: dark rounded bar matching the design */}
+      <View
+        className={`flex-row items-center rounded-2xl px-4 py-3 w-full ${
+          dark ? 'bg-[#111827]' : 'bg-white/5'
+        }`}
+        style={{ alignItems: 'center' }}
+      >
+        {/* Left circular checkbox / handle */}
+        <TouchableOpacity
+          activeOpacity={0.8}
+          accessibilityRole="button"
+          className={`h-5 w-5 rounded-full items-center justify-center ${
+            dark ? 'border border-slate-600' : 'border border-slate-300'
+          }`}
+          onPress={() => {
+            /* optional: could toggle completion of a draft or focus the input */
+          }}
+        >
+          {/* small filled dot when there's text to hint activity */}
+          {text.length > 0 ? (
+            <View className="h-3 w-3 rounded-full bg-blue-500" />
+          ) : (
+            <View className="h-3 w-3 rounded-full bg-transparent" />
+          )}
+        </TouchableOpacity>
+
+        {/* Text input that visually centers text similar to the screenshot */}
+        <TextInput
+          className={`flex-1 ml-3 text-sm ${dark ? 'text-[#e6eef8]' : 'text-[#111827]'}`}
+          value={text}
+          onChangeText={setText}
+          placeholder="Currently typing"
+          placeholderTextColor={dark ? '#9aa6bd' : '#9ca3af'}
+          onSubmitEditing={onSubmit}
+          returnKeyType="done"
+          accessibilityLabel="New todo"
+          underlineColorAndroid="transparent"
+        />
+
+        {/* Subtle Add button — kept small to match compact UI */}
+        <TouchableOpacity
+          className="ml-3 px-3 py-1 rounded-md"
+          onPress={onSubmit}
+          accessibilityRole="button"
+          style={{ backgroundColor: '#2563EB' }}
+        >
+          <Text className="text-white text-sm">Add</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

@@ -116,7 +116,7 @@ const AppScreen: FC = () => {
       </ImageBackground>
 
       <SafeAreaView className="w-screen absolute top-[108px] md:top-[158px] h-full items-center">
-        <View className={`${dark ? "bg-[#071021]" : "bg-[#f3f4f6]"} rounded-lg p-3 relative w-[327px] md:w-[540px]`}>
+        <View className={`rounded-lg p-3 relative w-[90%] md:w-[540px]`}>
           <TodoInput text={text} setText={setText} onSubmit={onSubmit} dark={dark} />
 
           <View style={{ minHeight: 80 }}>
