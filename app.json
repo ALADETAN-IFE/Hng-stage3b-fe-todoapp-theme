@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "hng-stage3b-fe-todoapp-theme",
-    "slug": "hng-stage3b-fe-todoapp-theme",
+    "slug": "theme-todo-hng13",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -45,6 +45,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "90b2a938-b7ff-4bea-8948-a3a7f535ec6a"
+      }
+    },
+    "owner": "ifecodes"
   }
 }
